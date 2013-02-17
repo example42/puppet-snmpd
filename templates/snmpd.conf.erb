@@ -1,0 +1,14 @@
+### File managed with puppet ###
+#
+## Served by:        '<%= scope.lookupvar('::servername') %>'
+## Module:           '<%= scope.to_hash['module_name'] %>'
+## Template source:  'MODULES<%= template_source.gsub(Regexp.new("^#{Puppet::Node::Environment.current[:modulepath].gsub(':','|')}"),"") %>'
+#
+
+sysName <%= scope.lookupvar('snmpd::snmpname') %>
+sysLocation <%= scope.lookupvar('snmpd::snmplocation') %>
+sysContact <%= scope.lookupvar('snmpd::snmpcontact') %>
+
+# The following is generated from snmpd::options
+<% scope.lookupvar('snmpd::options').each_pair do |key, value| %><%= key %> <%= value %> 
+<% end %>
