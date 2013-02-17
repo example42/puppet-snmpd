@@ -113,7 +113,7 @@ class snmpd::params {
   $source = ''
   $source_dir = ''
   $source_dir_purge = false
-  $template = 'snmpd/snmpd.conf.erb'
+  $template = ''
   $options = ''
   $service_autorestart = true
   $version = 'present'

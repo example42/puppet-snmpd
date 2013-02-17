@@ -19,6 +19,7 @@ For detailed info about the logic and usage patterns of Example42 modules check 
 * Install snmpd with working defaults:
 
         class { 'snmpd':
+          template     => 'snmpd/snmpd.conf.erb',
           snmplocation => 'Building 4, Rack 12',
           snmpcontact  => 'noc@company.example42',
           options      => [
