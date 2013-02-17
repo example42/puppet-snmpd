@@ -205,6 +205,9 @@
 #   Alessandro Franceschi <al@lab42.it/>
 #
 class snmpd (
+  $snmpname            = params_lookup( 'snmpname' ),
+  $snmplocation        = params_lookup( 'snmplocation' ),
+  $snmpcontact         = params_lookup( 'snmpcontact' ),
   $my_class            = params_lookup( 'my_class' ),
   $source              = params_lookup( 'source' ),
   $source_dir          = params_lookup( 'source_dir' ),

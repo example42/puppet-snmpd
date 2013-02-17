@@ -14,6 +14,10 @@
 #
 class snmpd::params {
 
+  $snmpname = $::fqdn
+  $snmplocation = ""
+  $snmpcontact = ""
+
   ### Application related parameters
 
   $package = $::operatingsystem ? {
@@ -109,7 +113,7 @@ class snmpd::params {
   $source = ''
   $source_dir = ''
   $source_dir_purge = false
-  $template = ''
+  $template = 'snmpd/snmpd.conf.erb'
   $options = ''
   $service_autorestart = true
   $version = 'present'
