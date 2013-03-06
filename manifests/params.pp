@@ -14,6 +14,10 @@
 #
 class snmpd::params {
 
+  $snmpname = $::fqdn
+  $snmplocation = ""
+  $snmpcontact = ""
+
   ### Application related parameters
 
   $package = $::operatingsystem ? {
