@@ -247,7 +247,13 @@ class snmpd (
   $log_dir             = params_lookup( 'log_dir' ),
   $log_file            = params_lookup( 'log_file' ),
   $port                = params_lookup( 'port' ),
-  $protocol            = params_lookup( 'protocol' )
+  $protocol            = params_lookup( 'protocol' ),
+  $authuser            = params_lookup( 'authuser' ),
+  $authpass            = params_lookup( 'authpass' ),
+  $authtype            = params_lookup( 'authtype' ),
+  $privpass            = params_lookup( 'privpass' ),
+  $privtype            = params_lookup( 'privtype' )
+
   ) inherits snmpd::params {
 
   $bool_source_dir_purge=any2bool($source_dir_purge)
@@ -373,6 +379,31 @@ class snmpd (
       audit   => $snmpd::manage_audit,
     }
   }
+      ### Include snmpv3 auth
+      file { 'var-net-snmp':
+        ensure  => $snmpd::manage_file,
+        path    => $snmpd::params::var_net_snmp,
+        require => Package[$snmpd::package],
+      }
+      file { 'var-net-snmp.dir':
+        ensure  => directory,
+        path    => $snmpd::params::var_net_snmp_dir,
+        require => Package[$snmpd::package],
+        }
+
+      if $privpass {
+        $authcmd = "createUser ${authuser} ${authtype} ${authpass} ${privtype} ${privpass}"
+        } else {
+          $authcmd = "createUser ${authuser} ${authtype} ${authpass}"
+        }
+
+      exec { "create-snmpv3-user":
+        path    => '/bin:/sbin:/usr/bin:/usr/sbin',
+        command => "echo \"$authcmd\" >>${snmpd::params::var_net_snmp_dir}/snmpd.conf && touch ${snmpd::params::var_net_snmp_dir}/$authuser",
+        onlyif  => "test ! -f ${snmpd::params::var_net_snmp_dir}/$authuser ",
+        require => [ Package[$snmpd::package], File['var-net-snmp'], ],
+        before  => Service[$service],
+      }
 
 
   ### Include custom class if $my_class is set
