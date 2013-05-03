@@ -114,6 +114,7 @@ class snmpd::params {
   $source_dir = ''
   $source_dir_purge = false
   $template = ''
+  $content = ''
   $options = ''
   $service_autorestart = true
   $version = 'present'

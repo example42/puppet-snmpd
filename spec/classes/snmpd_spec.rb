@@ -98,7 +98,24 @@ describe 'snmpd' do
       content = catalogue.resource('file', 'snmpd.conf').send(:parameters)[:content]
       content.should match "value_a"
     end
+  end
 
+  describe 'Test customizations - content' do
+    let(:params) { {:content => "Rspec" } }
+
+    it 'should generate a valid template' do
+      content = catalogue.resource('file', 'snmpd.conf').send(:parameters)[:content]
+      content.should match "Rspec"
+    end
+  end
+
+  describe 'Test customizations - template is preferred over content' do
+    let(:params) { {:content => "Rspec" , :template => "snmpd/spec.erb" , :options => { 'opt_a' => 'value_a' } } }
+
+    it 'should generate a valid template' do
+      content = catalogue.resource('file', 'snmpd.conf').send(:parameters)[:content]
+      content.should match "value_a"
+    end
   end
 
   describe 'Test customizations - source' do

@@ -84,6 +84,14 @@ For detailed info about the logic and usage patterns of Example42 modules check 
           template => 'example42/snmpd/snmpd.conf.erb',
         }
 
+* Manage directly the content of the main config file. Note that template has precedence over content.
+
+        class { 'snmpd':
+          content => inline_template(
+            file( "$settings::modulepath/example42/templates/snmpd/snmpd.conf.erb-${hostname}",
+                  "$settings::modulepath/example42/templates/snmpd/snmpd.conf.erb" ) ),
+        }
+
 * Automatically include a custom subclass
 
         class { 'snmpd':
