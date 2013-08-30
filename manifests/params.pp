@@ -15,8 +15,8 @@
 class snmpd::params {
 
   $snmpname = $::fqdn
-  $snmplocation = ""
-  $snmpcontact = ""
+  $snmplocation = ''
+  $snmpcontact = ''
 
   ### Application related parameters
 
