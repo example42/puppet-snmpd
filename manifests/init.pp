@@ -277,7 +277,7 @@ class snmpd (
 
   $require_package = $snmpd::package ? {
     ''      => undef,
-    default => Package['snmpd'],
+    default => Package["$snmpd::package"],
   }
 
   $manage_service_enable = $snmpd::bool_disableboot ? {
