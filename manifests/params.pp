@@ -60,8 +60,8 @@ class snmpd::params {
       '5.10' => '/etc/snmp/conf',
       '5.11' => '/etc/net-snmp/snmp',
     },
-    /(?i:OpenBSD)/ => '/etc/snmp',
-    default        => '/etc/snmpd',
+    /(?i:OpenBSD)/  => '/etc/snmp',
+    default         => '/etc/snmpd',
   }
 
   $config_file = $::operatingsystem ? {
