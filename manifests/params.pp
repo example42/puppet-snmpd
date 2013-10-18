@@ -26,7 +26,7 @@ class snmpd::params {
       '5.11' => 'net-snmp',
     },
     /(?i:RedHat|Centos|Scientific|Linux|Amazon)/ => 'net-snmp',
-    /(?i:OpenBSD)/                               => '',
+    /(?i:OpenBSD)/                               => 'net-snmp',
     default                                      => 'snmpd',
   }
 
@@ -35,6 +35,7 @@ class snmpd::params {
       '5.10' => 'snmpx',
       '5.11' => 'net-snmp',
     },
+    /(?i:OpenBSD)/ => 'netsnmpd',
     default        => 'snmpd',
   }
 
@@ -59,6 +60,7 @@ class snmpd::params {
       '5.10' => '/etc/snmp/conf',
       '5.11' => '/etc/net-snmp/snmp',
     },
+    /(?i:OpenBSD)/  => '/etc/snmp',
     default         => '/etc/snmpd',
   }
 
@@ -67,14 +69,13 @@ class snmpd::params {
       '5.10' => '/etc/snmp/conf/snmpd.conf',
       '5.11' => '/etc/net-snmp/snmp/snmpd.conf',
     },
-    /(?i:OpenBSD)/  => '/etc/snmpd.conf',
     default         => '/etc/snmp/snmpd.conf',
   }
 
   $config_file_mode = $::operatingsystem ? {
-    /(?i:Solaris)/        => '0444',
-    /(?i:Debian|OpenBSD)/ => '0600',
-    default               => '0644',
+    /(?i:Solaris)/ => '0444',
+    /(?i:Debian)/  => '0600',
+    default        => '0644',
   }
 
   $config_file_owner = $::operatingsystem ? {
