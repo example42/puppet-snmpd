@@ -73,9 +73,10 @@ class snmpd::params {
   }
 
   $config_file_mode = $::operatingsystem ? {
-    /(?i:Solaris)/ => '0444',
-    /(?i:Debian)/  => '0600',
-    default        => '0644',
+    /(?i:Solaris)/                               => '0444',
+    /(?i:Debian)/                                => '0600',
+    /(?i:RedHat|Centos|Scientific|Linux|Amazon)/ => '0600',
+    default                                      => '0644',
   }
 
   $config_file_owner = $::operatingsystem ? {
