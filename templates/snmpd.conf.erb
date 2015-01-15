@@ -10,5 +10,5 @@ sysLocation <%= scope.lookupvar('snmpd::snmplocation') %>
 sysContact <%= scope.lookupvar('snmpd::snmpcontact') %>
 
 # The following is generated from snmpd::options
-<% scope.lookupvar('snmpd::options').each_pair do |key, value| %><%= key %> <%= value %> 
+<% scope.lookupvar('snmpd::options').sort.each do |option| %><%= option.first %> <%= option.last %> 
 <% end %>
