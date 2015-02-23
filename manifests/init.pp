@@ -348,7 +348,7 @@ class snmpd (
   }
 
   ### Managed resources
-  if $snmpd::package {
+  if $snmpd::package and $snmpd::package != '' {
     package { $snmpd::package:
       ensure => $snmpd::manage_package,
     }
@@ -378,7 +378,7 @@ class snmpd (
   }
 
   # The whole snmpd configuration directory can be recursively overriden
-  if $snmpd::source_dir {
+  if $snmpd::source_dir and $snmpd::source_dir != '' {
     file { 'snmpd.dir':
       ensure  => directory,
       path    => $snmpd::config_dir,
@@ -394,7 +394,7 @@ class snmpd (
 
 
   ### Include custom class if $my_class is set
-  if $snmpd::my_class {
+  if $snmpd::my_class and $snmpd::my_class != '' {
     include $snmpd::my_class
   }
 
