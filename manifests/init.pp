@@ -277,7 +277,7 @@ class snmpd (
 
   $require_package = $snmpd::package ? {
     ''      => undef,
-    default => Package["$snmpd::package"],
+    default => Package[$snmpd::package],
   }
 
   $manage_service_enable = $snmpd::bool_disableboot ? {
@@ -355,12 +355,12 @@ class snmpd (
   }
 
   service { 'snmpd':
-    ensure     => $snmpd::manage_service_ensure,
-    name       => $snmpd::service,
-    enable     => $snmpd::manage_service_enable,
-    hasstatus  => $snmpd::service_status,
-    pattern    => $snmpd::process,
-    require    => $require_package,
+    ensure    => $snmpd::manage_service_ensure,
+    name      => $snmpd::service,
+    enable    => $snmpd::manage_service_enable,
+    hasstatus => $snmpd::service_status,
+    pattern   => $snmpd::process,
+    require   => $require_package,
   }
 
   file { 'snmpd.conf':
