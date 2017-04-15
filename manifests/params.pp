@@ -111,6 +111,17 @@ class snmpd::params {
   $log_file = $::operatingsystem ? {
     default => '',
   }
+  $var_net_snmp = $::operatingsystem ? {
+    /(?i:Debian|Ubuntu|Mint)/                    => '/var/net-snmp/snmpd.conf',
+    /(?i:RedHat|Centos|Scientific|Linux|Amazon)/ => '/var/net-snmp/snmpd.conf',
+    default                                      => '/var/net-snmp/snmpd.conf',
+  }
+  $var_net_snmp_dir = $::operatingsystem ? {
+    /(?i:Debian|Ubuntu|Mint)/                    => '/var/net-snmp',
+    /(?i:RedHat|Centos|Scientific|Linux|Amazon)/ => '/var/net-snmp',
+    default                                      => '/var/net-snmp',
+  }
+
 
   $port = '161'
   $protocol = 'udp'
@@ -128,6 +139,13 @@ class snmpd::params {
   $absent = false
   $disable = false
   $disableboot = false
+  $authuser = ''
+  $authpass = ''
+  $authtype = 'SHA'
+  $privpass = ''
+  $privtype = 'AES'
+
+
 
   ### General module variables that can have a site or per module default
   $monitor = false
